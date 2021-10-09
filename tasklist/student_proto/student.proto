@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package student_proto;
+
+option go_package = "task/student_proto";
+
+
+service Students {
+    rpc CreateStudent (CreateStudentRequest) returns (Student) {}
+    rpc UpdateStudent (UpdateStudentRequest) returns (Student) {}
+    rpc DeleteStudent (DeleteStudentRequest) returns (Empty) {}
+    rpc GetStudentById (GetStudentByIdRequest) returns (Student) {}
+    rpc GetAllStudents (GetAllStudentsRequest) returns (GetAllStudentsResponse) {}
+    rpc CreateTaskController (CreateTaskControllerRequest) returns (Empty) {}
+    rpc GetStudentTask (GetStudentsTasksRequest) returns (GetStudentsTasksResponse) {}
+    rpc ListAllUsersTasks (ListAllUsersTasksRequest) returns (ListAllUsersTasksResponse) {}
+}
+
+message Task {
+    string name = 1;
+}
+
+message Student {
+    string id = 1;
+    string first_name = 2;
+}
+
+message StudentTask {
+    Student student = 1;
+    Task task = 2;
+}
+
+message CreateStudentRequest {
+    Student student = 1;
+}
+
+message UpdateStudentRequest {
+    Student student = 1;
+}
+
+message DeleteStudentRequest {
+    string id = 1;
+}
+
+message GetStudentByIdRequest {
+    string id = 1;
+}
+
+message GetAllStudentsRequest {}
+
+message GetAllStudentsResponse {
+    repeated Student student = 1;
+}
+
+message CreateTaskControllerRequest {
+    string student_id = 1;
+    string task_id = 2;
+}
+
+message GetStudentsTasksRequest {
+    string student_id = 1;
+}
+
+message GetStudentsTasksResponse {
+    Student student = 1;
+    repeated Task task = 2;
+}
+
+message RepeatedTask {
+    repeated Task task = 1;
+}
+
+message ListAllUsersTasksRequest {}
+
+message ListAllUsersTasksResponse{
+    repeated GetStudentsTasksResponse student_tasks = 1;
+}
+
+message Empty {}
